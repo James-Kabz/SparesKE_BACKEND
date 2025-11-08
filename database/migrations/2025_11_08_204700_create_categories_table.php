@@ -18,10 +18,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::table('parts', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('category_id');
-        });
-
         Schema::dropIfExists('categories');
     }
 };

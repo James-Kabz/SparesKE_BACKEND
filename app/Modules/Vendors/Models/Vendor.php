@@ -13,6 +13,8 @@ class Vendor extends Model
 {
     use HasFactory;
 
+    protected $table = 'vendors';
+
     protected $fillable = [
         'user_id',
         'shop_name',

@@ -13,6 +13,8 @@ class Part extends Model
 {
     use HasFactory;
 
+    protected $table = 'parts';
+    
     protected $fillable = [
         'vendor_id',
         'category_id',

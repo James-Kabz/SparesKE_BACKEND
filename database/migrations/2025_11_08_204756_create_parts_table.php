@@ -22,7 +22,7 @@ return new class extends Migration
             $table->json('images')->nullable(); // store image URLs
             $table->timestamps();
 
-            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
         });
     }
 

@@ -10,6 +10,8 @@ class PickupPoint extends Model
 {
     use HasFactory;
 
+    protected $table = 'pickup_points';
+
     protected $fillable = [
         'vendor_id',
         'name',
