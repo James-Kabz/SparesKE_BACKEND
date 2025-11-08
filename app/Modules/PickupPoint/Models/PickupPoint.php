@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\PickupPoint\Models;
 
+use App\Modules\Vendors\Models\Vendor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,7 +1,7 @@
 <?php
 
-use App\Modules\Orders\Controllers\OrdersController;
+use App\Modules\Orders\Controllers\OrderController;
 
 Route::middleware(['auth:sanctum', ''])->group(function () {
-    Route::apiResource('orders', OrdersController::class);
+    Route::apiResource('orders', OrderController::class);
 });

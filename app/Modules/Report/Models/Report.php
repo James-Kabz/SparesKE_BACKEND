@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Report\Models;
 
+use App\Models\User;
+use App\Modules\Parts\Models\Part;
+use App\Modules\Vendors\Models\Vendor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

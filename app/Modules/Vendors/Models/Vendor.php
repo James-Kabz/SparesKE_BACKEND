@@ -1,7 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Vendors\Models;
 
+use App\Models\User;
+use App\Modules\Parts\Models\Part;
+use App\Modules\PickupPoint\Models\PickupPoint;
+use App\Modules\Review\Models\Review;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
