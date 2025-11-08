@@ -58,7 +58,7 @@ class CrudService
         $validated = $this->validate($data);
 
         foreach ($validated as $key => $value) {
-            if (is_array($value)) {
+            if (is_array($value) && !isset($this->model->getCasts()[$key])) {
                 $collection = collect();
 
                 foreach ($value as $singleValue) {
@@ -80,7 +80,7 @@ class CrudService
         $validated = $this->validate($data);
 
         foreach ($validated as $key => $value) {
-            if (is_array($value)) {
+            if (is_array($value) && !isset($this->model->getCasts()[$key])) {
                 $collection = collect();
 
                 foreach ($value as $index => $singleValue) {
