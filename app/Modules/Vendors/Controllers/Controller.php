@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Vendors\Controller;
+namespace App\Modules\Vendors\Controllers;
 
 use App\Modules\Controller as BaseController;
 

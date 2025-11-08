@@ -1,7 +1,7 @@
 <?php
 
-use App\Modules\Vendors\Controller\VendorContoller;
+use App\Modules\Vendors\Controllers\VendorController;
 
 Route::middleware(['auth:sanctum', ''])->group(function () {
-    Route::apiResource('vendors', VendorContoller::class);
+    Route::apiResource('vendors', VendorController::class);
 });
