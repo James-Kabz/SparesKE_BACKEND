@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
+class Order extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
         'vendor_id',
-        'rating',
-        'comment',
+        'part_id',
+        'status',
+        'pickup_point',
+        'payment_method',
     ];
 
     public function user()
@@ -24,5 +26,10 @@ class Review extends Model
     public function vendor()
     {
         return $this->belongsTo(Vendor::class);
+    }
+
+    public function part()
+    {
+        return $this->belongsTo(Part::class);
     }
 }
