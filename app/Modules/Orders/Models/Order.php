@@ -24,6 +24,8 @@ class Order extends Model
         'payment_method',
     ];
 
+    protected $with = ['user', 'vendor', 'part', 'pickupPoint'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
