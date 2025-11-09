@@ -8,6 +8,13 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::middleware(['auth:sanctum', ''])->group(function () {
-    Route::apiResource('categories', CategoryController::class);
+// Public routes for getting categories
+Route::get('categories', [CategoryController::class, 'index']);
+Route::get('categories/{category}', [CategoryController::class, 'show']);
+
+Route::middleware(['auth:sanctum', 'role:super-admin'])->group(function () {
+    Route::post('categories', [CategoryController::class, 'store']);
+    Route::put('categories/{category}', [CategoryController::class, 'update']);
+    Route::patch('categories/{category}', [CategoryController::class, 'update']);
+    Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
 });

@@ -14,14 +14,12 @@ class Part extends Model
     use HasFactory;
 
     protected $table = 'parts';
-    
     protected $fillable = [
         'vendor_id',
         'category_id',
         'name',
         'car_make',
         'car_model',
-        'category',
         'price',
         'condition',
         'availability',
@@ -34,6 +32,7 @@ class Part extends Model
         'availability' => 'boolean',
     ];
 
+    protected $with = ['category'];
     public function vendor()
     {
         return $this->belongsTo(Vendor::class);

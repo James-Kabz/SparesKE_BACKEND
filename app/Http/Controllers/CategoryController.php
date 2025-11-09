@@ -6,4 +6,5 @@ use App\Modules\Controller;
 
 class CategoryController extends Controller
 {
+    // 
 }

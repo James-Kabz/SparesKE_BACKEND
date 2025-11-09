@@ -11,10 +11,10 @@ return new class extends Migration
         Schema::create('parts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vendor_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->string('name');
             $table->string('car_make');
             $table->string('car_model');
-            $table->string('category')->nullable();
             $table->decimal('price', 10, 2);
             $table->enum('condition', ['New', 'Used']);
             $table->boolean('availability')->default(true);
@@ -22,7 +22,6 @@ return new class extends Migration
             $table->json('images')->nullable(); // store image URLs
             $table->timestamps();
 
-            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
         });
     }
 
