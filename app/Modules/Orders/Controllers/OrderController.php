@@ -42,4 +42,13 @@ class OrderController extends Controller
         $items = $this->service->all($this->with, $this->orderBy)->where('vendor_id', $vendor->id);
         return sendApiResponse([$this->resourceName => $this->transform($items)], ucfirst($this->resourceName) . ' fetched successfully.');
     }
+
+    // update order status
+    public function updateStatus(Request $request, $id)
+    {
+        $item = $this->service->find($id);
+        $item->status = $request->status;
+        $item->save();
+        return sendApiResponse([$this->resourceName => $this->transform($item)], ucfirst($this->resourceName) . ' updated successfully.');
+    }
 }
