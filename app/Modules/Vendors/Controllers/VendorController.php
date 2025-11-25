@@ -7,6 +7,39 @@ use Illuminate\Database\QueryException;
 
 class VendorController extends Controller
 {
+    // get current authenticated user's vendor profile
+    public function me()
+    {
+        try {
+            $user = auth()->user();
+            $vendor = Vendor::where('user_id', $user->id)->first();
+
+            if (!$vendor) {
+                // Create vendor profile if it doesn't exist
+                $vendor = Vendor::create([
+                    'user_id' => $user->id,
+                    'shop_name' => $user->name . "'s Shop",
+                    'description' => null,
+                    'location' => $user->location ?? null,
+                    'phone' => $user->phone ?? null,
+                    'verified' => false,
+                    'rating' => 0,
+                    'socials' => null,
+                ]);
+            }
+
+            return sendApiResponse(
+                ['vendor' => $this->transform($vendor)],
+                'Vendor profile retrieved successfully',
+                200
+            );
+        } catch (QueryException $e) {
+            return sendApiError('Failed to retrieve vendor profile', 500, $e->getMessage());
+        } catch (\Exception $e) {
+            return sendApiError('An unexpected error occurred', 500, $e->getMessage());
+        }
+    }
+
     // verify vendor profile
     public function verifyVendor(int $id)
     {
@@ -22,7 +55,7 @@ class VendorController extends Controller
             }
 
             $vendor->update([
-                'verified' => 1 ,
+                'verified' => 1,
             ]);
 
             return sendApiResponse(
