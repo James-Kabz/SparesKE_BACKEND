@@ -19,6 +19,8 @@ class PickupPointController extends Controller
 
         $pickupPoints = $vendor->pickupPoints;
 
-        return sendApiResponse($pickupPoints, 'Vendor Pickup points retrieved successfully');
+        return sendApiResponse(
+            ['pickupPoint' => $pickupPoints],
+            'Vendor PickupPoint fetched successfully.');
     }
 }

@@ -20,9 +20,9 @@ class PickupPoint extends Model
         'active',
     ];
 
-    protected $casts = [
-        'active' => 'boolean',
-    ];
+    // protected $casts = [
+    //     'active' => 'boolean',
+    // ];
 
     public function vendor()
     {
