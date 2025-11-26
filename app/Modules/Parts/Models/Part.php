@@ -29,7 +29,6 @@ class Part extends Model
 
     protected $casts = [
         'images' => 'array',
-        'availability' => 'boolean',
     ];
 
     protected $with = ['category'];
