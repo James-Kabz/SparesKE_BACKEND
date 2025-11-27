@@ -8,6 +8,7 @@ use App\Modules\Report\Models\Report;
 use App\Modules\Vendors\Models\Vendor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Part extends Model
 {
@@ -24,14 +25,33 @@ class Part extends Model
         'condition',
         'availability',
         'description',
-        'images',
+        'images', // ADD THIS - it was missing!
     ];
 
     protected $casts = [
         'images' => 'array',
     ];
 
-    protected $with = ['category'];
+    // REMOVE this line - it's causing the accessor to override the actual data
+    // protected $appends = ['images'];
+
+    protected $with = ['category', 'orders' , 'reports'];
+
+    // REPLACE the accessor with this one that properly handles the images array
+    public function getImagesAttribute($value)
+    {
+        if (empty($value)) {
+            return [];
+        }
+
+        $images = json_decode($value, true) ?? [];
+
+        // Convert relative paths to full URLs
+        return array_map(function ($path) {
+            return url(Storage::url($path));
+        }, $images);
+    }
+
     public function vendor()
     {
         return $this->belongsTo(Vendor::class);
@@ -51,5 +71,4 @@ class Part extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
 }

@@ -24,7 +24,7 @@ class Order extends Model
         'payment_method',
     ];
 
-    protected $with = ['user', 'vendor', 'part', 'pickupPoint'];
+    protected $with = ['user', 'vendor', 'pickupPoint'];
 
     public function user()
     {

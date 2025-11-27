@@ -7,6 +7,7 @@ use App\Modules\Services\CrudService;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -53,6 +54,41 @@ abstract class Controller extends BaseController
             return $data instanceof Collection ? $resource::collection($data) : new $resource($data);
         }
         return $data;
+    }
+
+    /**
+     * Upload a file to the specified directory with validation.
+     *
+     * @param Request $request
+     * @param string $fieldName
+     * @param string $directory
+     * @param array $allowedMimes
+     * @return string|null
+     * @throws ValidationException
+     */
+    protected function uploadFile(Request $request, string $fieldName, string $directory = 'uploads', array $allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+    {
+        if ($request->hasFile($fieldName)) {
+            $file = $request->file($fieldName);
+
+            if (!$file->isValid()) {
+                throw ValidationException::withMessages(['file' => 'Uploaded file is not valid.']);
+            }
+
+            if (!in_array($file->getMimeType(), $allowedMimes)) {
+                throw ValidationException::withMessages(['file' => 'File type not allowed.']);
+            }
+
+            $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $file->getClientOriginalExtension();
+            $filename = Str::slug($originalName) . '_' . time() . '.' . $extension;
+
+            $path = $file->storeAs($directory, $filename, 'public');
+
+            return $path;
+        }
+
+        return null;
     }
 
     /* -------------------------------------------------------------------------
